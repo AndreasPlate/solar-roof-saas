@@ -1,0 +1,35 @@
+{
+  "name": "supabase-auth",
+  "category": "backend",
+  "description": "Complete Supabase authentication system with login, signup, forgot password, and update password",
+  "requires_auth": false,
+  "dependencies": [
+    "@supabase/supabase-js",
+    "@supabase/ssr",
+    "react-dom",
+    "lucide-react"
+  ],
+  "requires": [],
+  "conflicts": [],
+  "files": [
+    "login-form.tsx",
+    "signup-form.tsx",
+    "forgot-password-form.tsx",
+    "update-password-form.tsx",
+    "submit-button.tsx",
+    "form-message.tsx",
+    "auth-layout.tsx"
+  ],
+  "ui_components": [
+    "button",
+    "card",
+    "input",
+    "label"
+  ],
+  "lib_files": [
+    "lib/supabase/client.ts",
+    "lib/supabase/server.ts",
+    "lib/supabase/middleware.ts",
+    "app/actions.ts"
+  ]
+}

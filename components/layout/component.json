@@ -1,0 +1,25 @@
+{
+  "name": "app-shell",
+  "category": "layouts",
+  "description": "Complete application shell with header, navigation, and main content area",
+  "requires_auth": true,
+  "dependencies": [
+    "@radix-ui/react-avatar",
+    "lucide-react"
+  ],
+  "requires": [
+    "supabase-auth"
+  ],
+  "conflicts": [],
+  "files": [
+    "app-shell.tsx",
+    "global-header.tsx",
+    "header-divider.tsx",
+    "main-container.tsx"
+  ],
+  "ui_components": [
+    "avatar",
+    "button",
+    "separator"
+  ]
+}
