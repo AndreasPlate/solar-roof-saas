@@ -11,6 +11,16 @@ export const supabaseAdmin = createClient(supabaseUrl, supabaseServiceKey, {
   }
 })
 
+// Standard server-side client for authenticated operations
+export const createClient = () => {
+  return createClient(supabaseUrl, supabaseServiceKey, {
+    auth: {
+      autoRefreshToken: false,
+      persistSession: false
+    }
+  })
+}
+
 // Server-side operations for Solar Roof SaaS
 export class SolarRoofService {
   

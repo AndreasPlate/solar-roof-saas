@@ -1,30 +1,18 @@
-import { createClient } from "@/lib/supabase/server"
 import { redirect } from "next/navigation"
 import { StudioClient } from "./studio-client"
-import { AppShell } from "@/components/app-shell"
+import { AppShell } from "@/components/layout/app-shell"
+import { getAuthenticatedUser, isSuperAdmin } from "@/lib/auth-utils"
+import { createClient } from "@/lib/supabase/server"
 
 export default async function StudioPage() {
-  const supabase = await createClient()
-
-  const {
-    data: { user },
-  } = await supabase.auth.getUser()
-
-  if (!user) {
-    return redirect("/auth/login")
-  }
-
-  // Fetch user profile to check for super_admin role
-  const { data: userProfile } = await supabase
-    .from("user_profiles")
-    .select("role")
-    .eq("id", user.id)
-    .single()
+  const { user, userProfile, userRole } = await getAuthenticatedUser()
 
   // Only allow super_admin access to studio
-  if (userProfile?.role !== "super_admin") {
+  if (!isSuperAdmin(userProfile)) {
     return redirect("/unauthorized")
   }
+
+  const supabase = await createClient()
 
   // Dynamic entity discovery - get all tables
   let entities: any[] = []
@@ -93,14 +81,14 @@ export default async function StudioPage() {
     <AppShell
       headerProps={{
         user,
-        userRole: userProfile?.role || "user",
+        userRole,
         currentPage: "studio",
       }}
     >
       <StudioClient
         entities={entities}
         user={user}
-        userRole={userProfile?.role || "user"}
+        userRole={userRole}
         connectionStatus={connectionStatus}
         environmentInfo={environmentInfo}
         errorMessage={errorMessage}
